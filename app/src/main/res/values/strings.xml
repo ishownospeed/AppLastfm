@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">AppLastfm</string>
+    <string name="search_artists">Поиск музыкальных исполнителей</string>
+    <string name="description">Сервис позволяет найти лучшие треки исполнителей и показывает биографию.</string>
+    <string name="biography_artist">Биография артиста</string>
+    <string name="biography">Биография</string>
+    <string name="best_tracks">Лучшие треки</string>
+    <string name="who_are_looking">Кого ищем?</string>
+    <string name="search">Искать</string>
+    <string name="back_button"><u>Вернуться назад</u></string>
+    <string name="other_description">Добро пожаловать на шабаш</string>
 </resources>

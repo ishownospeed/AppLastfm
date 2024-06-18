@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextStyle">
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textFontWeight">700</item>
+        <item name="lineHeight">29sp</item>
+    </style>
+
+</resources>
