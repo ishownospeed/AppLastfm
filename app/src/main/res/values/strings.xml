@@ -9,4 +9,6 @@
     <string name="search">Искать</string>
     <string name="back_button"><u>Вернуться назад</u></string>
     <string name="other_description">Добро пожаловать на шабаш</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

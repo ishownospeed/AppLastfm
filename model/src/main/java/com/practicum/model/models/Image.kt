@@ -1,4 +1,4 @@
-package com.practicum.applastfm.lastfmapi
+package com.practicum.model.models
 
 import com.google.gson.annotations.SerializedName
 

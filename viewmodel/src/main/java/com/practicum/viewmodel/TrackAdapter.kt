@@ -1,14 +1,16 @@
-package com.practicum.applastfm.fragments
+package com.practicum.viewmodel
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.practicum.applastfm.lastfmapi.TrackFromTop
+import com.practicum.model.models.TrackFromTop
 
 class TrackAdapter(private var tracks: MutableList<TrackFromTop>) :
     RecyclerView.Adapter<TrackViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
-        return TrackViewHolder(parent)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.track_view, parent, false)
+        return TrackViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {

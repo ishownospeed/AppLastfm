@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.practicum.applastfm.fragments.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_biographyFragment2"
+            app:destination="@id/biographyFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_bestTracksFragment2"
+            app:destination="@id/bestTracksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bestTracksFragment"
+        android:name="com.practicum.applastfm.fragments.BestTracksFragment"
+        android:label="BestTracksFragment"
+        tools:layout="@layout/fragment_best_tracks" >
+        <action
+            android:id="@+id/action_bestTracksFragment_to_mainFragment2"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/nav_graph" />
+    </fragment>
+    <fragment
+        android:id="@+id/biographyFragment"
+        android:name="com.practicum.applastfm.fragments.BiographyFragment"
+        android:label="BiographyFragment"
+        tools:layout="@layout/fragment_biography_search" >
+        <action
+            android:id="@+id/action_biographyFragment_to_mainFragment2"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/nav_graph" />
+    </fragment>
+</navigation>

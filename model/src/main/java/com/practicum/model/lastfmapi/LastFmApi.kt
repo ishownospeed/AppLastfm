@@ -1,5 +1,7 @@
-package com.practicum.applastfm.lastfmapi
+package com.practicum.model.lastfmapi
 
+import com.practicum.model.models.ArtistResponse
+import com.practicum.model.models.TracksResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

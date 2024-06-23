@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
+import androidx.navigation.fragment.findNavController
 import com.practicum.applastfm.R
 import com.practicum.applastfm.databinding.FragmentMainBinding
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(R.layout.fragment_main) {
 
     private lateinit var binding: FragmentMainBinding
 
@@ -20,29 +19,17 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val controller = findNavController()
 
         binding.biography.setOnClickListener {
-            parentFragmentManager.commit {
-                addToBackStack(null)
-                hide(this@MainFragment)
-                setReorderingAllowed(true)
-                add<BiographyFragment>(R.id.container)
-            }
+            controller.navigate(R.id.biographyFragment)
         }
 
         binding.bestTracks.setOnClickListener {
-            parentFragmentManager.commit {
-                addToBackStack(null)
-                hide(this@MainFragment)
-                setReorderingAllowed(true)
-                add<BestTracksFragment>(R.id.container)
-            }
+            controller.navigate(R.id.bestTracksFragment)
         }
+
+        return binding.root
     }
 
 }

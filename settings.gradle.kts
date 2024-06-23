@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "AppLastfm"
 include(":app")
+include(":model")
+include(":viewmodel")

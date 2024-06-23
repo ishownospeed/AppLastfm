@@ -6,19 +6,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.practicum.applastfm.R
 import com.practicum.applastfm.databinding.FragmentBiographySearchBinding
-import com.practicum.applastfm.lastfmapi.ArtistResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.practicum.viewmodel.viewmodels.BiographyViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BiographyFragment : Fragment(R.layout.fragment_biography_search) {
 
     private lateinit var binding: FragmentBiographySearchBinding
+    private val biographyViewModel: BiographyViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        biographyViewModel.nameMutableLiveData.observe(this, Observer {
+            binding.nameArtist.text = it
+        })
+
+        biographyViewModel.bioMutableLiveData.observe(this, Observer {
+            binding.bioArtist.text = it
+        })
+
+        biographyViewModel.imageMutableLiveData.observe(this, Observer {
+            Glide.with(this)
+                .load(it)
+                .fitCenter()
+                .into(binding.pictureArtist)
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,51 +54,23 @@ class BiographyFragment : Fragment(R.layout.fragment_biography_search) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonBackForBiography.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
 
         binding.buttonBiography.setOnClickListener {
             if (binding.etBiography.text.isNotEmpty()) {
                 hideKeyBoard()
-                responseServerBiographyArtist()
+
+                biographyViewModel.responseServerBiographyArtist(
+                    context = context?.applicationContext!!,
+                    editText = binding.etBiography,
+                    pictureArtist = binding.pictureArtist,
+                    nameArtist = binding.nameArtist,
+                    bioArtist = binding.bioArtist
+                )
             }
         }
 
-    }
-
-    private fun responseServerBiographyArtist() {
-        ManagerService.getServiceLastFmApi()
-            .getBiographyArtist(binding.etBiography.text.toString())
-            .enqueue(object : Callback<ArtistResponse> {
-                override fun onResponse(
-                    call: Call<ArtistResponse>,
-                    response: Response<ArtistResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val artist = response.body()?.artist
-
-                        if (artist == null) {
-                            Toast.makeText(context, "Ничего не нашлось", Toast.LENGTH_SHORT).show()
-                            return
-                        }
-
-                        Glide.with(this@BiographyFragment)
-                            .load(artist.images[1].url)
-                            .placeholder(R.color.violet)
-                            .fitCenter()
-                            .into(binding.pictureArtist)
-
-                        binding.nameArtist.text = artist.name
-                        binding.bioArtist.text = artist.bio.summary
-                    }
-                }
-
-                override fun onFailure(call: Call<ArtistResponse>, t: Throwable) {
-                    Toast.makeText(context, "Проверьте подключение к интернету", Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-            })
     }
 
     private fun hideKeyBoard() {
@@ -86,4 +79,5 @@ class BiographyFragment : Fragment(R.layout.fragment_biography_search) {
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
+
 }
